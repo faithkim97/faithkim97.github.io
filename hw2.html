@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Flood Fill</title>
+
+
+<script>
+    var canvas;    // DOM object corresponding to the canvas
+    var graphics;  // 2D graphics context for drawing on the canvas
+    var theta;
+    var radius = 100;
+    // note: change both for a different background color
+    var backgroundColor = "blue";
+    var backgroundRGB = [0,0,255,255];
+    var newColor = "red";
+    var newRGB = [255,0,0,255];
+    var cx = 225;
+    var cy = 145;
+    var edgeColor = "black";
+    var edgeRGB = [0,0,0,255];
+  
+
+    //checks if colors are equal to each other in the tuple indices
+    function colorEqual(color1, color2) {
+        // TODO
+        if ( (color1[0] == color2[0]) && (color1[1] == color2[1]) && (color1[2] == color2[2]) && 
+            (color1[3] == color2[3])) {
+            return true;
+        }
+
+        else {
+            return false;
+        }
+    }
+
+    //fills the top half of the polygon
+    function fillTop(x,y,oc) {
+        var currentRGB = graphics.getImageData(x,y,1,1).data;
+
+        if (colorEqual(currentRGB, oc)) {
+            graphics.fillRect(x,y,1,1);
+            fillTop(x,y-1,oc);
+            fillTop(x-1,y,oc);
+            fillTop(x+1,y,oc);
+
+            
+        
+        }
+    }
+    //colors the second half of the polygon 
+    function fillBottom(x, y, oc) {
+        //returns [R,G,B,A]; tell us what color this pixel has. 
+        var currentRGB = graphics.getImageData(x,y,1,1).data;
+        //if color is background color
+        if (colorEqual(currentRGB, oc)) {
+            //fill it with new Color
+            graphics.fillRect(x,y,1,1);
+            
+            //top right
+            fillBottom(x+1,y+1,oc);
+            //west
+            fillBottom(x-1,y,oc);
+            //east 
+            fillBottom(x+1,y,oc);
+
+           
+            
+        }
+
+
+
+
+        
+
+    }
+
+
+    //draws the polygon
+    function draw() {
+        // make sure to color the background first, since it doesn't have a default color
+
+        graphics.fillStyle = backgroundColor;
+        graphics.fillRect(0,0,canvas.width,canvas.height);
+        regularPolygon(8, cx,cy, radius, edgeColor, "red");
+
+
+
+        
+        
+        
+        
+        
+
+    }
+        //constructs the polygon
+      function regularPolygon(n, cx, cy, r, lineColor,polColor) {
+
+        theta = (2*Math.PI)/n 
+    
+        graphics.beginPath();
+        //moves to center of canvas
+        graphics.moveTo(r+cx, cy);
+        graphics.strokeStyle = lineColor;
+
+        for (var i = 0; i < n + 1 ; i++) {
+            var a = theta*i;
+            var x = r*Math.cos(a)+ cx;
+            var y = r*Math.sin(a) + cy;
+            graphics.lineTo(x,y);
+
+        }
+
+        // this is what actually draws the polygon
+        graphics.stroke();
+
+        graphics.fillStyle = polColor; 
+        fillBottom(cx,cy,backgroundRGB); 
+        fillTop(cx,cy-1,backgroundRGB);
+        
+    }
+
+    function init() {
+        canvas = document.getElementById("theCanvas");
+        graphics = canvas.getContext("2d");
+        draw();  // draw something on the canvas
+        
+        
+        
+    }
+</script>
+
+
+</head>
+<body onload="init()">
+    <canvas id="theCanvas" width="450" height="290"></canvas>
+</body>
+</html>
