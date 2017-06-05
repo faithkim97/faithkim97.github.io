@@ -1,3 +1,4 @@
+
 body {
   background-color: black;
   background-image: url("bg.jpg");
@@ -7,4 +8,66 @@ h1 {
   font-family: courier;
   color: white;
   font-size: 100px;
+  margin-left: 50px;
 }
+
+p {
+  font-family: bookantiqua;
+  color: black;
+}
+
+
+#rcorners1 {
+  border-radius: 25px;
+  background-color: white;
+  width: 600px;
+  height: 700px;
+  margin-left: 50px;
+  padding: 50px;
+}
+
+#rcorners2 {
+  border-radius: 25px;
+  float: right;
+  width: 300px;
+  height: 500px;
+  background-color: white;
+  overflow: auto;
+  /*top, right, bottom, left */
+  margin: -815px 0px 20px 800px;
+  position: absolute;
+  padding: 30px;
+  text-align: center;
+
+}
+
+
+div.gallery {
+  margin: 5px;
+  border: 2px solid;
+  width: 180px;
+
+}
+
+div.gallery:hover {
+  background-color: pink;
+  transition-duration: 0.5s;
+}
+
+div.gallery {
+  width: 100%;
+  height: auto;
+}
+
+/* Used for hovering over navigation bar check 2p!england for example
+ul a:link {display:block;
+	font-family:curlzmt;
+	background-image:url("pinksparkle.gif");
+	color:#663399;
+	width:103px;
+	font-weight:bold;
+	padding:4px;
+	margin:0% 0% 0% 30%;
+
+}
+*/
