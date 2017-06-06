@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<head>
+<title>Blender to WebGL</title>
+<script src="three.min.js"></script>
+
+<script>
+    var scene, camera, renderer; // Three.js rendering basics.
+
+    var canvas; // The canvas on which the image is rendered.
+
+    // The rotating chess piece 
+    var chessPiece;
+    
+    // Create the scene. This function is called once, as soon as the page loads.
+    // The renderer has already been created before this function is called.
+    function createWorld() {
+        
+        renderer.setClearColor(0); // Set background color (0, or 0x000000, is black).
+        scene = new THREE.Scene(); // Create a new scene which we can add objects to.
+    
+        // create a camera, sitting on the positive z-axis.  The camera is not part of the scene.
+        camera = new THREE.PerspectiveCamera(70, canvas.width/canvas.height, 1, 1000);
+
+        var light = new THREE.DirectionalLight( 0xffffff );
+        light.position.set( 1, 1, 1 );
+        scene.add(light);
+    
+        var material = new THREE.MeshPhongMaterial( { ambient: "white", color: "green", specular: "white", shininess: 5 } );
+
+        var loader = new THREE.JSONLoader();
+        loader.load('pawn1.json', function(geometry) {
+            chessPiece = new THREE.Mesh(geometry, material);
+            chessPiece.position.z = -9;
+            scene.add(chessPiece);
+        });
+    }
+
+    // Render the scene. This is called for each frame of the animation.
+    function render() {
+        requestAnimationFrame( render );
+
+        chessPiece.rotation.x += .04;
+        chessPiece.rotation.y += .02;
+
+        renderer.render(scene, camera);
+    }
+
+    //----------------------------------------------------------------------------------
+
+    // The init() function is called by the onload event when the document has loaded.
+    function init() {
+        try {
+            canvas = document.getElementById("glcanvas");
+            renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true} );
+        }
+        catch (e) {
+            document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
+            return;
+        }
+    
+        // create world and render scene
+        createWorld();
+        render();
+    }
+
+</script>
+
+</head>
+<body onload="init()">
+<div id="canvas-holder">
+    <canvas id="glcanvas" width="600" height="400"></canvas>
+</div>
+</body>
+</html>

@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<head>
+<title>Solar System</title>
+<script src="three.min.js"></script>
+<script src="KeyboardState.js"></script>
+
+<script>
+
+/* 
+PLEASE USE GOOGLE CHROME FOR OPTIMAL KEYBOARD MOVEMENT. FIREFOX HAS CHOPPY ANIMATION
+
+CONTROLS FOR THE KEYBOARD:
+1.) Camera Control:
+    -Keys W,A,S,D are for movement of the camera (forward, left, backward, right respectively)
+    -In order to rotate the camera, hold the space button while using the W,A,S,D keys
+2.) Earth control:
+    -The arrows up, left, down, right
+3.) Saturn control: 
+    -Keys I,J,K,L (forward, left, backward, right respectively)
+
+*/
+    var scene, camera, renderer;  // Three.js rendering basics.
+
+    var canvas;  // The canvas on which the image is rendered.
+    var angle= 0;    // The angle (about the y-axis) of the directional light.
+    var moonSphere;
+    var earthSphere;
+    var sunSphere;
+    var moonContainer;
+    var keyboard =  new KeyboardState();
+    var saturn;
+    var dust;
+    var earthContainer;
+    var saturnContainer;
+    var dirLightZ; 
+
+
+
+    // Create the scene. This function is called once, as soon as the page loads.
+    // The renderer has already been created before this function is called.
+    function createWorld() {
+        
+        renderer.setClearColor(0); // Set background color (0, or 0x000000, is black).
+        scene = new THREE.Scene(); // Create a new scene which we can add objects to.
+    
+        // create a camera, sitting on the positive z-axis.  The camera is not part of the scene.
+        camera = new THREE.PerspectiveCamera(45, canvas.width/canvas.height, 0.1, 900);
+        camera.position.z = 300; // pull back the camera
+
+        // ambient light
+        // ambientLight = new THREE.AmbientLight("yellow",0.4);
+        // scene.add(ambientLight);
+
+        // point light
+        pointLight = new THREE.PointLight("yellow", 4, 1000); // color, intensity, and distance
+        pointLight.position.set( 0,0,0);
+        scene.add(pointLight);
+        scene.add(new THREE.PointLightHelper(pointLight, 3)); // see where the light is
+
+
+        dirLightZ = new THREE.DirectionalLight("white", 1);
+        dirLightZ.position.set(1,0,1);
+        scene.add(dirLightZ);
+
+
+        // set up the sphere vars
+        var radius = 50,
+            segments = 10,
+            rings = 20;
+
+        // create the sphere's material
+        var sphereGeometry = new THREE.SphereGeometry(radius, segments, rings);
+        // var sphereMaterial = new THREE.MeshLambertMaterial({ color: "yellow" });
+        var sphereMaterial = new THREE.MeshLambertMaterial({color: "yellow", opacity: 1, transparent: true});
+        sunSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
+
+        // add the sphere to the scene
+        scene.add(sunSphere); 
+
+
+
+        planet = new THREE.Object3D();
+        scene.add(planet);
+    
+        // sunSphere.add(planet);
+
+        moonContainer = new THREE.Object3D();
+        scene.add(moonContainer);
+    
+        var earthGeometry = new THREE.SphereGeometry(radius/3,segments,rings);
+        var earthMaterial = new THREE.MeshLambertMaterial({color: "#418cff"});
+        earthSphere = new THREE.Mesh(earthGeometry, earthMaterial);
+        earthSphere.position.set(80,0,100);
+
+        // //earth is child of planet
+        scene.add(earthSphere);
+        // planet.add(earthSphere);
+        
+
+        //add moon
+        var moonGeometry = new THREE.SphereGeometry(radius/10, segments, rings);
+        var moonMaterial = new THREE.MeshLambertMaterial({color: "white"});
+        moonSphere = new THREE.Mesh(moonGeometry, moonMaterial);
+
+        moonSphere.position.set(-30,10,0);
+
+        scene.add(moonSphere);
+
+        // earthSphere.add(moonSphere); 
+
+        moonContainer.add(moonSphere);
+
+        earthSphere.add(moonContainer);
+
+        var saturnMaterial = new THREE.MeshLambertMaterial({color: "#F9C858"});
+        var saturnGeometry = new THREE.SphereGeometry(radius/2.5, segments, rings);
+        saturn = new THREE.Mesh(saturnGeometry, saturnMaterial );
+
+        saturn.position.set(40,0,100);
+        scene.add(saturn);
+        sunSphere.add(saturn);
+        var r = 30;
+
+
+
+
+        
+        
+        //making the saturn ring
+        for (var i = 0; i< 360; i++) {
+            //used the polygon function to replicate a unit circle 
+            var theta = (2*Math.PI)/i;
+            var x = r*Math.cos(theta);
+            var z  = r*Math.sin(theta);
+            var x2 = r*Math.cos(-theta);
+            var z2 = r*Math.sin(-theta);
+            //creating the ring
+            var dustGeometry = new THREE.SphereGeometry(1, segments, rings);
+            var dustMaterial = new THREE.MeshLambertMaterial({color:"brown"});
+            dust = new THREE.Mesh(dustGeometry, dustMaterial);
+            dust2 = new THREE.Mesh(dustGeometry, dustMaterial);
+            dust3 = new THREE.Mesh(dustGeometry,dustMaterial);
+            dust3.position.set(-x,0,-z);
+            dust2.position.set(x2,0,z2);
+            dust.position.set(x,0,z);
+            scene.add(dust2);
+            saturn.add(dust2);
+            scene.add(dust);
+            saturn.add(dust);
+           
+
+        }
+
+        for (var i = 0; i <300; i++) {
+             var starGeometry = new THREE.SphereGeometry(1, 10,20);
+             var starMaterial = new THREE.MeshLambertMaterial({color: "aqua"});
+             var star = new THREE.Mesh(starGeometry, starMaterial);
+
+           
+             star.position.set(getRandomInt(-400,400), getRandomInt(-200,200), getRandomInt(-300,300));
+             scene.add(star);
+        }
+
+            
+
+        earthContainer = new THREE.Object3D();
+        saturnContainer = new THREE.Object3D();
+        scene.add(earthContainer);
+        scene.add(saturnContainer);
+        earthContainer.add(earthSphere);
+        saturnContainer.add(saturn);
+
+        sunSphere.add(earthContainer);
+        sunSphere.add(saturnContainer);
+
+
+        
+
+
+         
+
+
+}
+
+    function keyboardUpdate() {
+        keyboard.update();
+        //camera controls
+        if (keyboard.pressed("w") || keyboard.pressed("W")) {
+            //move forward
+            camera.position.z -= 1;
+        }
+
+        if ( keyboard.pressed("s") || keyboard.pressed("S") ) {
+            //move backward
+            camera.position.z += 1;
+        }
+
+        if (keyboard.pressed("d") || keyboard.pressed("D") ) {
+            //move left
+            camera.position.x += 1;
+        }
+
+        if ( keyboard.pressed("a") || keyboard.pressed("A") ) {
+            //move right
+            camera.position.x -= 1;
+        }
+
+        if (keyboard.pressed("s") || keyboard.pressed("S") && keyboard.pressed("space")) {
+            camera.rotation.x -= 0.01;
+        }
+
+        if (keyboard.pressed("w") || keyboard.pressed("W") && keyboard.pressed("space")) {
+            camera.rotation.x += 0.01;
+        }
+
+        if (keyboard.pressed("a") || keyboard.pressed("A") && keyboard.pressed("space")) {
+            camera.rotation.y += 0.01;
+        }
+
+        if (keyboard.pressed("d") || keyboard.pressed("D") && keyboard.pressed("space")) {
+            camera.rotation.y -= 0.01;
+        }
+
+        //earth controls
+
+        if (keyboard.pressed("left")) {
+            earthContainer.rotation.y -= 0.01;
+        }
+
+        if ( keyboard.pressed("right") ) {
+            earthContainer.rotation.y += 0.01;
+        }
+
+        if (keyboard.pressed("up")) {
+            earthContainer.rotation.x -= 0.01;
+        }
+
+        if (keyboard.pressed("down")) {
+            earthContainer.rotation.x += 0.01;
+        }
+
+        //saturn controls
+
+        if (keyboard.pressed("I") || keyboard.pressed("i")) {
+            saturnContainer.rotation.x -= 0.01;
+
+        }
+
+        if (keyboard.pressed("j") || keyboard.pressed("J")) {
+            saturnContainer.rotation.y -= 0.01;
+        }
+
+        if (keyboard.pressed("l") || keyboard.pressed("L")) {
+            saturnContainer.rotation.y += 0.01;
+        }
+
+        if (keyboard.pressed("k") || keyboard.pressed("K")) {
+            saturnContainer.rotation.x += 0.01;
+        }
+
+
+     }
+
+
+    // Render the scene. This is called for each frame of the animation.
+    function render() {
+        requestAnimationFrame( render );
+
+        angle += 0.02;
+
+
+        //to rotate the planets-->use the sunSphere rotation 
+        // sunSphere.rotation.y = angle*0.5;
+        moonContainer.rotation.z = angle;
+    
+        keyboardUpdate();
+        renderer.render(scene, camera);
+        
+        
+    }
+
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+    //----------------------------------------------------------------------------------
+
+    // The init() function is called by the onload event when the document has loaded.
+    function init() {
+        try {
+            canvas = document.getElementById("glcanvas");
+            renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true} );
+        }
+        catch (e) {
+            document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
+            return;
+        }
+    
+        // create world and render scene
+        createWorld();
+        render();
+    }
+
+</script>
+
+</head>
+<body onload="init()">
+<div id="canvas-holder">
+    <canvas id="glcanvas" width="600" height="400"></canvas>
+</div>
+</body>
+</html>

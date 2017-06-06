@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<head>
+<title> Final Project </title>
+<script src = "three.min.js"></script>
+<script src = "KeyboardState.js"> </script>
+
+
+<script>
+var camera, renderer, scene;
+var canvas;//
+var keyboard = new KeyboardState();
+var object = 0;
+var mBots;
+var microList = [];
+var baymax;
+var baymaxContainer;
+var boxContainer;
+var collideables = [];
+var cube;
+var wheelContainer;
+var captured;
+var count = 0;
+
+
+
+function createWorld() {
+
+	// renderer = new THREE.WebGLRenderer( { alpha: true } );
+	renderer.setClearColor("#A451DE",1); //set background color to purple
+
+	scene = new THREE.Scene();
+
+	camera = new THREE.PerspectiveCamera(45, canvas.width/canvas.height, 1, 900 );
+	camera.position.z = 320;
+
+
+	//creates background image
+	var cameraBG = new THREE.OrthographicCamera( -window.innerWidth, 
+		window.innerWidth, window.innerHeight, -window.innerHeight, -10000,10000);
+	cameraBG.position.z = 50;
+
+	var materialColor = new THREE.MeshBasicMaterial( {map: THREE.ImageUtils.loadTexture("portalworld.jpg"), depthTest: false});
+
+	var bgPlane = new THREE.Mesh( new THREE.PlaneGeometry(1,1), materialColor);
+	bgPlane.position.z = -500;
+	bgPlane.scale.set(window.innerWidth*2, window.innerHeight * 2, 1);
+	scene.add(bgPlane);
+
+
+	//light 
+	var dirLight = new THREE.DirectionalLight( "white", 2);
+	dirLight.position.set(1,1,1);
+	scene.add(dirLight);
+	var dirLight2 = new THREE.DirectionalLight("white", 2);
+	dirLight2.position.set(1,-1,1);
+	scene.add(dirLight2);
+
+ 
+    baymaxContainer = new THREE.Object3D();
+    //purple cube Baymax holds
+   	var basketGeom = new THREE.BoxGeometry(5,5,5);
+   	var basketFaceMaterial = new THREE.MeshFaceMaterial([
+   		new THREE.MeshLambertMaterial( { color: "purple" } ),     // +x face
+        new THREE.MeshLambertMaterial( { color: "purple" } ),    // -x face
+        new THREE.MeshLambertMaterial( { color:  "purple"} ),   // +y face
+        new THREE.MeshLambertMaterial( { color: "purple" } ), // -y face
+        new THREE.MeshLambertMaterial( { color: "purple" } ),  // +z face
+        new THREE.MeshLambertMaterial( { color: "purple" } )     // -z face
+    ] );
+
+    cube = new THREE.Mesh(basketGeom, basketFaceMaterial);
+   	cube.position.set(0,-10,250);
+
+
+    var loader = new THREE.JSONLoader();
+	var bayTexture = new THREE.ImageUtils.loadTexture( 'bay.png');
+	var bayMaterial = new THREE.MeshPhongMaterial({ map: bayTexture });
+	loader.load( 'baymax2.json', function(geometry){
+
+		baymax = new THREE.Mesh(geometry, bayMaterial);
+		baymax.position.set(0,-10,270);
+		baymax.scale.set(2,2,2);
+	    baymaxContainer.add(baymax);
+	});
+
+	baymaxContainer.add(cube);
+	baymaxContainer.add(camera);
+	scene.add(baymaxContainer);
+
+
+
+	//creates the abandoned wheel in space
+	var wheelTexture = new THREE.ImageUtils.loadTexture( 'silver.jpg');
+	var wheelMaterial = new THREE.MeshPhongMaterial({ map: wheelTexture });
+	wheelContainer = new THREE.Object3D();
+	loader.load( 'wheel.json', function(geometry) {
+		var wheel = new THREE.Mesh(geometry, wheelMaterial);
+		wheel.position.set(20,10,270);
+		wheel.scale.set(2,2,2);
+		wheel.rotation.x += 1;
+		scene.add(wheel);
+		wheelContainer.add(wheel);
+		
+	});
+
+	
+
+	scene.add(wheelContainer);
+
+
+	//texture mapping for microbots
+	var microTexture = THREE.ImageUtils.loadTexture( "ornament.jpg");
+	var microMaterial = new THREE.MeshPhongMaterial( { map: microTexture});
+	
+
+
+
+	var octaGeom = new THREE.Geometry();
+
+        octaGeom.vertices = [ 
+
+        new THREE.Vector3( 0, 5, 0 ), //vertex 0
+        new THREE.Vector3( -5 , 0, 5), //vertex 1 
+        new THREE.Vector3( -5, 0, -5 ), //vertex 2 
+        new THREE.Vector3( 5, 0, -5 ), //vertex 3 
+        new THREE.Vector3( 5, 0, 5 ), //vertex 4
+        new THREE.Vector3( 0, -5, 0 ) //vertex 5
+
+
+        ];
+
+        octaGeom.faces = [
+
+        new THREE.Face3( 1, 4, 0 ),
+        new THREE.Face3( 4, 3, 0 ),
+        new THREE.Face3( 3, 2, 0 ),
+        new THREE.Face3( 2, 1, 0 ), //check if this works or (0,2,1)
+        new THREE.Face3( 5, 4, 1 ), 
+        new THREE.Face3( 5, 3, 4 ), 
+        new THREE.Face3( 5, 2, 3 ), //or (2,3,5)
+        new THREE.Face3( 1, 2, 5 ) //or (2,5,1)
+
+        ];
+
+        octaGeom.computeFaceNormals();
+
+
+        var uvcoords = [
+
+         new THREE.Vector2( 0, 0 ), //index 0
+         new THREE.Vector2( 1, 0 ), //index 1
+         new THREE.Vector2( 1, 1 ), //index 2 
+         new THREE.Vector2( 0.5, 1 ), //index 3
+         new THREE.Vector2( 0, 1 ) //index 4
+
+         ];
+         //texture mapping microbots
+        //top octa
+         // Face 1,4,0
+         octaGeom.faceVertexUvs[0].push([ uvcoords[4], uvcoords[0], uvcoords[2] ]);
+         //4,3,0
+         octaGeom.faceVertexUvs[0].push([ uvcoords[0], uvcoords[1], uvcoords[2] ]);
+         //3,2,0
+         octaGeom.faceVertexUvs[0].push([ uvcoords[0], uvcoords[1], uvcoords[4] ]);
+         //2,1,0
+         octaGeom.faceVertexUvs[0].push([ uvcoords[1], uvcoords[0], uvcoords[4] ]);
+
+         //bottom octa 
+         //5,4,1
+         octaGeom.faceVertexUvs[0].push([ uvcoords[2], uvcoords[1], uvcoords[0] ]);
+         //5,3,4
+         octaGeom.faceVertexUvs[0].push([ uvcoords[0], uvcoords[2], uvcoords[1] ]);
+         //5,2,3
+         octaGeom.faceVertexUvs[0].push([ uvcoords[1], uvcoords[2], uvcoords[4] ]);
+        //1,2,5
+         octaGeom.faceVertexUvs[0].push([ uvcoords[1], uvcoords[0], uvcoords[4] ]);
+
+
+
+
+
+
+
+
+     //creating microbots;
+	for (var i = 0; i < 10; i ++ ) {
+
+	    var x = randint( -100,100);
+	    var y = randint(-100,100);
+	    var z = randint( -1,1);
+
+		mBots = new THREE.Mesh(octaGeom, microMaterial );
+		scene.add(mBots);
+
+		mBots.position.set(x,y,z);
+		
+		microList.push(mBots);
+		collideables.push(mBots);
+
+	}
+
+
+
+
+
+
+
+
+	
+
+	
+
+
+
+	
+
+	
+
+}
+
+function keyboardUpdate() {
+	keyboard.update();
+	document.getElementById("spaces").innerHTML = "Space: " + object;
+
+	if (keyboard.down("space")) {
+		object += 1;
+		console.log(object);
+
+	}
+
+	if (object > microList.length ) {
+		object = 1;
+	}
+
+	if (object == 1) {
+		document.getElementById("spacebug").innerHTML = "Yay! You pressed the " +
+		"space bar! So Space 1 was just a test: press the space button again " +
+		"and try to move each Microbots!";
+
+	}
+
+ 
+	if ( keyboard.pressed("left")) {
+		if (object == 1) {
+			microList[0].position.x -= 1;
+		}
+
+		if (object == 2) {
+			microList[1].position.x -= 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.x -= 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.x -= 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.x -= 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.x -= 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.x -= 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.x -= 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.x -= 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.x -= 1;
+
+		}
+
+
+	}
+
+	if ( keyboard.pressed("up")) {
+		if (object == 1) {
+			microList[0].position.z -= 1;
+			
+				}
+
+		if (object == 2) {
+			microList[1].position.z -= 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.z -= 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.z -= 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.z -= 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.z -= 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.z -= 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.z -= 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.z -= 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.z -= 1;
+
+		}
+
+	}
+
+	if (keyboard.pressed("down")) {
+		if (object == 1) {
+			microList[0].position.z += 1;
+			
+		}
+
+		if (object == 2) {
+			microList[1].position.z += 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.z += 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.z += 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.z += 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.z += 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.z += 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.z += 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.z += 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.z += 1;
+
+		}
+	}
+
+	if (keyboard.pressed("right")) {
+		if (object == 1) {
+			microList[0].position.x += 1;
+			
+		}
+
+		if (object == 2) {
+			microList[1].position.x += 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.x += 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.x += 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.x += 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.x += 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.x += 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.x += 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.x += 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.x += 1;
+
+		}
+	}
+
+	if (keyboard.pressed("shift")) {
+		if (object == 1) {
+			microList[0].position.y -= 1;
+	
+		}
+
+		if (object == 2) {
+			microList[1].position.y -= 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.y -= 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.y -= 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.y -= 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.y -= 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.y -= 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.y -= 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.y -= 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.y -= 1;
+
+		}
+	}
+
+	if (keyboard.pressed("enter"))  {
+		if (object == 1) {
+			microList[0].position.y += 1;
+					}
+
+		if (object == 2) {
+			microList[1].position.y += 1;
+		}
+
+		if (object == 3) {
+			microList[2].position.y += 1;
+
+		}
+
+		if (object == 4) {
+			microList[3].position.y += 1;
+
+		}
+
+		if (object == 5) {
+			microList[4].position.y += 1;
+
+		}
+
+		if (object == 6) {
+			microList[5].position.y += 1;
+
+		}
+
+		if (object == 7) {
+			microList[6].position.y += 1;
+
+		}
+
+		if (object == 8) {
+			microList[7].position.y += 1;
+
+		}
+
+		if (object == 9) {
+			microList[8].position.y += 1;
+
+		}
+
+		if (object == 10) {
+			microList[9].position.y += 1;
+
+		}
+
+	}
+	//baymax control 
+	if (keyboard.pressed('w') || keyboard.pressed("W")) {
+
+		baymaxContainer.position.z -= 0.5;
+	}
+
+	if (keyboard.pressed('a') || keyboard.pressed("A")) {
+		baymaxContainer.position.x -= 0.5;
+	}
+
+	if (keyboard.pressed("s") || keyboard.pressed('S')) {
+		baymaxContainer.position.z += 0.8;
+	}
+
+	if (keyboard.pressed("d") || keyboard.pressed("D")) {
+		baymaxContainer.position.x += 0.5;
+	}
+
+	//collision detection 
+	var originPoint = cube.position.clone();
+
+	for (var vi = 0; vi < cube.geometry.vertices.length; vi++) {
+		var localVertex = cube.geometry.vertices[vi].clone();
+		var globalVertex = cube.localToWorld( localVertex);
+		var directionVector = globalVertex.sub( originPoint );
+
+		var ray = new THREE.Raycaster( originPoint, directionVector.clone().normalize());
+		var collisionResults = ray.intersectObjects( collideables);
+		//look up intersectobjects
+		if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
+			scene.remove(collisionResults[0].object);
+
+			
+		}
+
+
+
+
+
+		
+	}
+
+
+
+
+
+
+
+}
+
+
+function render() {
+	requestAnimationFrame(render);
+
+	keyboardUpdate();
+	//rotates each microbots
+	for (var i = 0; i<microList.length; i++) {
+		microList[i].rotation.y += 0.1;
+
+	}
+
+	wheelContainer.rotation.z +=0.01;
+
+
+	renderer.render(scene,camera);
+
+}
+
+function randint(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min)) + min;
+}
+
+
+function init() {
+
+	document.getElementById("press").innerHTML = "Try pressing the space button " +
+	"and see what happens!";
+	 try {
+	        canvas = document.getElementById("glcanvas");
+	        renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true} );
+	    }
+	    catch (e) {
+	        document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
+	        return;
+	    }
+
+	    createWorld();
+	    render()
+
+
+}
+
+</script>
+</head>
+<body onload="init()">
+<div id="canvas-holder">
+    <canvas id="glcanvas" width="1000" height="400"></canvas>
+</div>
+
+<p id = "spaces"> space: keyboardUpdate() </p>
+<p id = "press">init()</p>
+<p id = "spacebug"> keyboardUpdate() </p>
+
+</body>
+</html>
+
+

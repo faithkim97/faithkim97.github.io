@@ -17,13 +17,14 @@ p {
 }
 
 
-#rcorners1 {
+#section {
   border-radius: 25px;
   background-color: white;
   width: 600px;
   height: 700px;
   margin-left: 50px;
-  padding: 50px;
+  padding: 30px;
+  overflow: auto;
 }
 
 #rcorners2 {
@@ -46,6 +47,9 @@ div.gallery {
   margin: 5px;
   border: 2px solid;
   width: 180px;
+  float: left;
+
+
 
 }
 
@@ -54,7 +58,7 @@ div.gallery:hover {
   transition-duration: 0.5s;
 }
 
-div.gallery {
+div.gallery img {
   width: 100%;
   height: auto;
 }
