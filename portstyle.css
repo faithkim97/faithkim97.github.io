@@ -25,17 +25,18 @@ p {
   margin-left: 50px;
   padding: 30px;
   overflow: auto;
+  position: absolute;
 }
 
-#rcorners2 {
+#nav {
   border-radius: 25px;
   float: right;
   width: 300px;
-  height: 500px;
+  height: 200px;
   background-color: white;
   overflow: auto;
   /*top, right, bottom, left */
-  margin: -815px 0px 20px 800px;
+  margin: -140px 0px 20px 700px;
   position: absolute;
   padding: 30px;
   text-align: center;
@@ -63,15 +64,27 @@ div.gallery img {
   height: auto;
 }
 
-/* Used for hovering over navigation bar check 2p!england for example
-ul a:link {display:block;
-	font-family:curlzmt;
-	background-image:url("pinksparkle.gif");
-	color:#663399;
+div.desc {
+  overflow: auto;
+  font-family:bookantiqua;
+  padding: 5px;
+  font-size:12px;
+}
+
+/* Used for hovering over navigation bar check 2p!england for example*/
+ul a:link {
+  display:block;
+	font-family: courier;
+	color:pink;
 	width:103px;
 	font-weight:bold;
 	padding:4px;
-	margin:0% 0% 0% 30%;
+	margin:0% 0% 0% 20%;
 
 }
-*/
+
+
+ul a:hover {
+  transition-duration: 0.5s;
+  background-image: url("sparkle.gif");
+}

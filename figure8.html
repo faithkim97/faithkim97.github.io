@@ -3,6 +3,7 @@
 <html>
 <head>
 <title>Transformation Matrices</title>
+<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
 
 <script>
     var canvas;    // DOM object corresponding to the canvas
@@ -11,59 +12,59 @@
     // set of transformations (3x3)
     var currMatrix;
     var scaleMatrix;
-    var rotateMatrix; 
+    var rotateMatrix;
     var translateMatrix;
-    var shearMatrix; 
+    var shearMatrix;
     var refMatrix;
     var count=0;
     var timer;
     var count2 = 0;
-    
+
     function scale(ax,ay) {
         scaleMatrix = [[ax,0,0], [0,ay,0], [0,0,1]];
         pushMatrix(scaleMatrix);
-        return scaleMatrix; 
+        return scaleMatrix;
 
     }
 
     function rotate(theta) {
         rotateMatrix = [
-        [Math.cos(theta), -Math.sin(theta), 0], 
+        [Math.cos(theta), -Math.sin(theta), 0],
         [Math.sin(theta), Math.cos(theta),0],
-         [0,0,1]]; 
+         [0,0,1]];
         pushMatrix(rotateMatrix);
         //return rotateMatrix;
 
     }
 
     function translateM(tx,ty) {
-        translateMatrix = [[1,0,tx], [0,1,ty], [0,0,1]]; 
+        translateMatrix = [[1,0,tx], [0,1,ty], [0,0,1]];
         pushMatrix(translateMatrix);
-        return translateMatrix; 
+        return translateMatrix;
 
     }
 
-    function reflectionMatrix() { 
+    function reflectionMatrix() {
 
-        //gotta look up reflection identity matrix 
+        //gotta look up reflection identity matrix
         var refMatrix = [[-1,0,0], [0,1,0], [0,0,1]];
         pushMatrix(refMatrix);
 
-        return refMatrix;  
+        return refMatrix;
     }
 
     function shear(lambda) {
-        //look up shear formula 
+        //look up shear formula
         //if you want to change your x values:
         shearMatrix = [[1, lambda, 0], [0,1,0], [0,0,1]];
-        pushMatrix(shearMatrix);  
+        pushMatrix(shearMatrix);
         return shearMatrix;
 
     }
 
     function identityMatrix() {
-        currMatrix = [[1,0,0], [0,1,0],[0,0,1]]; 
-        return currMatrix; 
+        currMatrix = [[1,0,0], [0,1,0],[0,0,1]];
+        return currMatrix;
 
     }
 
@@ -80,55 +81,55 @@
         graphics.setTransform(currMatrix[0][0],currMatrix[1][0],
                            currMatrix[0][1],currMatrix[1][1],
                            currMatrix[0][2],currMatrix[1][2]);
-   
+
 
     }
- 
+
 
     function multiplyMatrix(M1, M2) {
         //problem: i have no idea how to get the multiplication get to the next column
 
-        //check if the row x column inner dimensions match 
+        //check if the row x column inner dimensions match
 
-        //find first matrix's number of columns 
+        //find first matrix's number of columns
         m1Length = M1[0].length;
         //find second matrix's number of rows
-        m2Length = M2.length; 
+        m2Length = M2.length;
 
         if (m1Length == m2Length) {
-            //start multiplying 
+            //start multiplying
             //console.log("You can start multiplying");
             var newMatrix = [];
             var elementSum = 0;
-            
-            //number of rows of the first matrix 
+
+            //number of rows of the first matrix
             for (var i = 0; i < M1.length; i++) {
                 newMatrix[i] = []
-                //number of columns in the second matrix 
+                //number of columns in the second matrix
                 for (var j = 0; j <M2[0].length; j++) {
-                    //we actualy need M2.length to get the row of M2 
+                    //we actualy need M2.length to get the row of M2
                     for(var k = 0; k < M1[0].length; k ++ ) {
-                        var newElement = M1[i][k]*M2[k][j]; 
+                        var newElement = M1[i][k]*M2[k][j];
                         elementSum = elementSum + newElement;
-                        
+
                     }
                     newMatrix[i].push(elementSum);
-                    elementSum = 0; 
-        
+                    elementSum = 0;
+
 
                 }
 
 
             }
 
-    
+
             return(newMatrix);
 
-            
 
-            
 
-                 
+
+
+
 
         }
 
@@ -137,11 +138,11 @@
         }
 
 
-        
+
     }
 
 
-    
+
     function animate() {
         /*
         graphics.save(); // save the current set of transformations
@@ -149,14 +150,14 @@
         graphics.clearRect(0, 0, canvas.width, canvas.height); // clear canvas
         graphics.restore(); // restore the transformations you had before
         */
-        
+
         count++;
         rotate(0.1);
 
-        
-        
+
+
         graphics.fillRect(50,50,50,50);
-        
+
         //console.log(count);
 
         if (count == 66 ) {
@@ -164,31 +165,31 @@
             count = 0;
             rotate(-0.1);
             translateM(200,0);
-            reflectionMatrix();  
+            reflectionMatrix();
 
         }
-       
+
         if (count2 == 50) {
             count2 = 0;
             count++;
             rotate(0.1);
             translateM(200,0);
-            reflectionMatrix(); 
+            reflectionMatrix();
 
-            
-            
+
+
         }
 
- 
 
-       
-        
-        
+
+
+
+
     }
-    
-    
 
-  
+
+
+
     function init() {
 
         canvas = document.getElementById("theCanvas");
@@ -196,31 +197,31 @@
         identityMatrix();
         translateM(200,100);   // draw something on the canvas
         timer = setInterval(animate, 50);
-        
 
 
-        
+
+
 
 
     }
 
-       
 
-
-
-
-
-        
-    
-        
-
-
-    
 </script>
 
 
 </head>
 <body onload="init()">
+  <h1> Figure 8 </h2>
+    <div id = "section">
     <canvas id="theCanvas" width="800" height="800"></canvas>
+  </div>
+  <div id = "nav" style = "margin: -5px 0px 20px 800px;">
+    <ul>
+      <a href = "index.html">Home</a>
+      <a href = "portfolio.html">Portfolio</a>
+      <a href = "index.html">About Me</a>
+
+    </ul>
+  </div>
 </body>
 </html>
