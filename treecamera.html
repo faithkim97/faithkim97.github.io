@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <head>
 <title>Pyramid</title>
+<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
 <script src="three.min.js"></script>
 
 
@@ -27,7 +28,7 @@
         scene.add(star);
 
     }
-    
+
     function makeTree(cx,cy,cz) {
         //creating the tree trunk
         var cubeGeom = new THREE.BoxGeometry(1,1,1);
@@ -42,11 +43,11 @@
 
         trunk = new THREE.Mesh(cubeGeom, cubeFaceMaterial);
 
-       
 
-        // create the leaf part 
 
-        var sphere = new THREE.SphereGeometry(1); //radius is the argument 
+        // create the leaf part
+
+        var sphere = new THREE.SphereGeometry(1); //radius is the argument
         var mat = new THREE.MeshBasicMaterial({color: "green"});
 
 
@@ -67,19 +68,19 @@
         leaf.position.x = cx;
         leaf.position.y = 2;
         leaf.position.z = cz;
-       
+
 
 
 
 
     }
 
-    
+
     function makePyramid(cx,cy,cz,height) {
          // set up the geometry for our pyramid
         var pyramidGeom = new THREE.Geometry();
         var dist = 1;
-    
+
         // TODO 3: create the (x,y,z) points for the 5 vertices of our pyramid
         pyramidGeom.vertices = [  // array of Vector3 giving vertex coordinates
             new THREE.Vector3( cx+dist, cy, cz+dist),  // vertex number 0
@@ -88,7 +89,7 @@
             new THREE.Vector3( cx-dist, cy, cz+dist),  // vertex number 3
             new THREE.Vector3( cx, cy+height, cz)   // vertex number 4
         ];
-        
+
         // TODO 4: using the indices of the vertices above, create triangular faces
         pyramidGeom.faces = [  // array of Face3 giving the triangular faces
             new THREE.Face3( 3, 1, 0),  // one half of the bottom face
@@ -98,16 +99,16 @@
             new THREE.Face3( 1, 2, 4),
             new THREE.Face3( 4, 2, 3)
         ];
-    
+
         // compute normals so we know which way is facing "out"
         pyramidGeom.computeFaceNormals();
-    
+
         // map the faces to materials
         pyramidGeom.faces[0].materialIndex = 0;
         for (var i = 1; i <= 5; i++) {
             pyramidGeom.faces[i].materialIndex = i-1;
         }
-    
+
         // Creates a material for the pyramid that is "matte" not "shiny".
         var pyramidFaceMaterial = new THREE.MeshFaceMaterial( [
             new THREE.MeshLambertMaterial( { color: 0xffffff, shading: THREE.FlatShading } ),
@@ -116,35 +117,35 @@
             new THREE.MeshLambertMaterial( { color: 0xffff99, shading: THREE.FlatShading } ),
             new THREE.MeshLambertMaterial( { color: 0xff9999, shading: THREE.FlatShading } )
         ] );
-    
+
         // Create the pyramid using the geometry and materials we've set up.
         // TODO 5: create the pyramid and add it to the scene
         var pyramid = new THREE.Mesh( pyramidGeom, pyramidFaceMaterial);
         return pyramid;
-      
+
 
 
     }
 
     function createWorld() {
 
-        
+
         renderer.setClearColor(0); // Set background color (0, or 0x000000, is black).
         scene = new THREE.Scene(); // Create a new scene which we can add objects to.
-    
+
         // create a camera, sitting on the positive z-axis.  The camera is not part of the scene.
         var aspect = canvas.width/canvas.height;
         camera = new THREE.PerspectiveCamera(90, aspect, 1, 30);
         camera.position.z = 3.0;
-        camera.position.y = 2; 
+        camera.position.y = 2;
         camera.rotation.x = -0.4;
-    
+
 
         // dim light shining from above
         scene.add( new THREE.DirectionalLight( "blue", 0.4 ) );
 
         // a light to shine in the direction the camera faces
-        var viewpointLight = new THREE.DirectionalLight( 0xffffff, 0.8 );  
+        var viewpointLight = new THREE.DirectionalLight( 0xffffff, 0.8 );
         viewpointLight.position.set(0,0,1);  // shines down the z-axis
         scene.add(viewpointLight);
 
@@ -155,10 +156,10 @@
         for(var i = 0; i<numPyramids; i++) {
             //puts cx,cy,cz,height into a list/array
             var x = Math.random() *5-2;
-            var z = Math.random(); 
+            var z = Math.random();
             var p = makePyramid(x,0,z,1);
             pyrList.push(p);
-             
+
         }
         // add each pyramid onto the scene
         for (var i = 0; i<numPyramids; i++) {
@@ -176,8 +177,8 @@
 
         plane.rotation.x = Math.PI/2;
 
-    
-       
+
+
     }
 
     // Render the scene. This is called for each frame of the animation.
@@ -187,12 +188,12 @@
         camera.position.z -= Math.random()* 0.01;
         // camera.position.x += 0.01;
         counter++;
-    
+
         if (counter>100 && counter<220) {
             camera.rotation.y += 0.01;
             camera.rotation.x += 0.001;
             // camera.position.x += 0.01;
-        
+
         }
 
         if (counter>220 && counter<300) {
@@ -203,7 +204,7 @@
             camera.rotation.y -= 0.003;
             camera.rotation.x -=0.001;
             camera.position.x -= 0.001;
-        
+
         }
 
         if (counter>540 && counter<670) {
@@ -216,7 +217,7 @@
 
         if (counter >670 && counter < 810) {
             camera.position.x -= 0.01;
-            
+
         }
 
         if (counter >810 && counter<900) {
@@ -230,7 +231,7 @@
         }
 
         if (counter>1000 && counter <1200) {
-            
+
             camera.position.z += 0.01;
 
 
@@ -266,7 +267,7 @@
                 console.log("x " + camera.rotation.x);
 
             }
-            
+
 
         }
 
@@ -277,7 +278,7 @@
                 camera.rotation.x = -0.4;
                 console.log("x "+ camera.rotation.x);
             }
-          
+
             // counter = getRandomInt(0,1200);
         }
 
@@ -285,23 +286,23 @@
             console.log('ok');
             camera.rotation.y += 0.05;
 
-            
-          
+
+
         }
 
         if (counter >1200 && camera.rotation.y > 0 ) {
             console.log('ok');
             camera.rotation.y -= 0.05;
-         
+
         }
 
-   
+
         if (counter >1200 && (camera.position.z == 3 && camera.rotation.x == -0.4 && camera.rotation.y <= 0 || camera.rotation.y >= 0)) {
             console.log("OMG EVERYTHING IS RESET YAY");
             camera.position.z = 3;
             camera.rotation.x = -0.4;
             camera.rotation.y = 0;
-           
+
         }
 
         if (counter >1200) {
@@ -331,7 +332,7 @@
             document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
             return;
         }
-    
+
         // create world and render scene
         createWorld();
         counter = getRandomInt(0,1200);
@@ -347,13 +348,13 @@
             makeStar(i-50,getRandomInt(0,10),getRandomInt(0,10));
             makeStar(getRandomInt(0,5)*-1, getRandomInt(0,10),getRandomInt(0,10));
         }
-     
-        
+
+
         render();
     }
 
 
-   
+
 
 
 </script>

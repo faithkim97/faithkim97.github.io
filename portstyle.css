@@ -25,7 +25,7 @@ p {
   margin-left: 50px;
   padding: 30px;
   overflow: auto;
-  position: absolute;
+  
 }
 
 #nav {
@@ -35,8 +35,6 @@ p {
   height: 200px;
   background-color: white;
   overflow: auto;
-  /*top, right, bottom, left */
-  margin: -140px 0px 20px 700px;
   position: absolute;
   padding: 30px;
   text-align: center;
