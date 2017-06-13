@@ -2,6 +2,7 @@
 <!DOCTYPE html>
 <head>
 <title>Blender to WebGL</title>
+<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
 <script src="three.min.js"></script>
 
 <script>
@@ -9,23 +10,23 @@
 
     var canvas; // The canvas on which the image is rendered.
 
-    // The rotating chess piece 
+    // The rotating chess piece
     var chessPiece;
-    
+
     // Create the scene. This function is called once, as soon as the page loads.
     // The renderer has already been created before this function is called.
     function createWorld() {
-        
+
         renderer.setClearColor(0); // Set background color (0, or 0x000000, is black).
         scene = new THREE.Scene(); // Create a new scene which we can add objects to.
-    
+
         // create a camera, sitting on the positive z-axis.  The camera is not part of the scene.
         camera = new THREE.PerspectiveCamera(70, canvas.width/canvas.height, 1, 1000);
 
         var light = new THREE.DirectionalLight( 0xffffff );
         light.position.set( 1, 1, 1 );
         scene.add(light);
-    
+
         var material = new THREE.MeshPhongMaterial( { ambient: "white", color: "green", specular: "white", shininess: 5 } );
 
         var loader = new THREE.JSONLoader();
@@ -40,8 +41,9 @@
     function render() {
         requestAnimationFrame( render );
 
-        chessPiece.rotation.x += .04;
+        //chessPiece.rotation.x += .04;
         chessPiece.rotation.y += .02;
+
 
         renderer.render(scene, camera);
     }
@@ -58,7 +60,7 @@
             document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
             return;
         }
-    
+
         // create world and render scene
         createWorld();
         render();
@@ -68,8 +70,22 @@
 
 </head>
 <body onload="init()">
+  <h1>Portfolio</h1>
+  <div id = "section">
+    <h2>Chess Piece Created in Blender</h2>
 <div id="canvas-holder">
     <canvas id="glcanvas" width="600" height="400"></canvas>
+</div>
+</div>
+<!--Navigation bar -->
+<div id = "nav" style = "margin: -760px 0px 20px 750px;">
+  <ul>
+    <a href = "index.html">Home</a>
+    <a href = "index.html">Resume</a>
+    <a href = "portfolio.html">Portfolio</a>
+    <a href = "aboutme.html">About Me</a>
+  </ul>
+  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
 </div>
 </body>
 </html>

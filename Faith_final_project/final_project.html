@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 <title> Final Project </title>
+<link rel = "stylesheet" type = "text/css" href = "/Users/Faith/Desktop/website/faithkim97.github.io/portstyle.css">
 <script src = "three.min.js"></script>
 <script src = "KeyboardState.js"> </script>
 
@@ -35,7 +36,7 @@ function createWorld() {
 
 
 	//creates background image
-	var cameraBG = new THREE.OrthographicCamera( -window.innerWidth, 
+	var cameraBG = new THREE.OrthographicCamera( -window.innerWidth,
 		window.innerWidth, window.innerHeight, -window.innerHeight, -10000,10000);
 	cameraBG.position.z = 50;
 
@@ -47,7 +48,7 @@ function createWorld() {
 	scene.add(bgPlane);
 
 
-	//light 
+	//light
 	var dirLight = new THREE.DirectionalLight( "white", 2);
 	dirLight.position.set(1,1,1);
 	scene.add(dirLight);
@@ -55,7 +56,7 @@ function createWorld() {
 	dirLight2.position.set(1,-1,1);
 	scene.add(dirLight2);
 
- 
+
     baymaxContainer = new THREE.Object3D();
     //purple cube Baymax holds
    	var basketGeom = new THREE.BoxGeometry(5,5,5);
@@ -100,10 +101,10 @@ function createWorld() {
 		wheel.rotation.x += 1;
 		scene.add(wheel);
 		wheelContainer.add(wheel);
-		
+
 	});
 
-	
+
 
 	scene.add(wheelContainer);
 
@@ -111,18 +112,18 @@ function createWorld() {
 	//texture mapping for microbots
 	var microTexture = THREE.ImageUtils.loadTexture( "ornament.jpg");
 	var microMaterial = new THREE.MeshPhongMaterial( { map: microTexture});
-	
+
 
 
 
 	var octaGeom = new THREE.Geometry();
 
-        octaGeom.vertices = [ 
+        octaGeom.vertices = [
 
         new THREE.Vector3( 0, 5, 0 ), //vertex 0
-        new THREE.Vector3( -5 , 0, 5), //vertex 1 
-        new THREE.Vector3( -5, 0, -5 ), //vertex 2 
-        new THREE.Vector3( 5, 0, -5 ), //vertex 3 
+        new THREE.Vector3( -5 , 0, 5), //vertex 1
+        new THREE.Vector3( -5, 0, -5 ), //vertex 2
+        new THREE.Vector3( 5, 0, -5 ), //vertex 3
         new THREE.Vector3( 5, 0, 5 ), //vertex 4
         new THREE.Vector3( 0, -5, 0 ) //vertex 5
 
@@ -135,8 +136,8 @@ function createWorld() {
         new THREE.Face3( 4, 3, 0 ),
         new THREE.Face3( 3, 2, 0 ),
         new THREE.Face3( 2, 1, 0 ), //check if this works or (0,2,1)
-        new THREE.Face3( 5, 4, 1 ), 
-        new THREE.Face3( 5, 3, 4 ), 
+        new THREE.Face3( 5, 4, 1 ),
+        new THREE.Face3( 5, 3, 4 ),
         new THREE.Face3( 5, 2, 3 ), //or (2,3,5)
         new THREE.Face3( 1, 2, 5 ) //or (2,5,1)
 
@@ -149,7 +150,7 @@ function createWorld() {
 
          new THREE.Vector2( 0, 0 ), //index 0
          new THREE.Vector2( 1, 0 ), //index 1
-         new THREE.Vector2( 1, 1 ), //index 2 
+         new THREE.Vector2( 1, 1 ), //index 2
          new THREE.Vector2( 0.5, 1 ), //index 3
          new THREE.Vector2( 0, 1 ) //index 4
 
@@ -165,7 +166,7 @@ function createWorld() {
          //2,1,0
          octaGeom.faceVertexUvs[0].push([ uvcoords[1], uvcoords[0], uvcoords[4] ]);
 
-         //bottom octa 
+         //bottom octa
          //5,4,1
          octaGeom.faceVertexUvs[0].push([ uvcoords[2], uvcoords[1], uvcoords[0] ]);
          //5,3,4
@@ -193,7 +194,7 @@ function createWorld() {
 		scene.add(mBots);
 
 		mBots.position.set(x,y,z);
-		
+
 		microList.push(mBots);
 		collideables.push(mBots);
 
@@ -206,15 +207,15 @@ function createWorld() {
 
 
 
-	
-
-	
 
 
 
-	
 
-	
+
+
+
+
+
 
 }
 
@@ -232,14 +233,14 @@ function keyboardUpdate() {
 		object = 1;
 	}
 
-	if (object == 1) {
+	/*(else if (object == 1) {
 		document.getElementById("spacebug").innerHTML = "Yay! You pressed the " +
-		"space bar! So Space 1 was just a test: press the space button again " +
-		"and try to move each Microbots!";
+		"space bar! So the space will try to move each Microbots!";
 
 	}
+	*/
 
- 
+
 	if ( keyboard.pressed("left")) {
 		if (object == 1) {
 			microList[0].position.x -= 1;
@@ -295,7 +296,7 @@ function keyboardUpdate() {
 	if ( keyboard.pressed("up")) {
 		if (object == 1) {
 			microList[0].position.z -= 1;
-			
+
 				}
 
 		if (object == 2) {
@@ -347,7 +348,7 @@ function keyboardUpdate() {
 	if (keyboard.pressed("down")) {
 		if (object == 1) {
 			microList[0].position.z += 1;
-			
+
 		}
 
 		if (object == 2) {
@@ -398,7 +399,7 @@ function keyboardUpdate() {
 	if (keyboard.pressed("right")) {
 		if (object == 1) {
 			microList[0].position.x += 1;
-			
+
 		}
 
 		if (object == 2) {
@@ -449,7 +450,7 @@ function keyboardUpdate() {
 	if (keyboard.pressed("shift")) {
 		if (object == 1) {
 			microList[0].position.y -= 1;
-	
+
 		}
 
 		if (object == 2) {
@@ -547,7 +548,7 @@ function keyboardUpdate() {
 		}
 
 	}
-	//baymax control 
+	//baymax control
 	if (keyboard.pressed('w') || keyboard.pressed("W")) {
 
 		baymaxContainer.position.z -= 0.5;
@@ -565,7 +566,7 @@ function keyboardUpdate() {
 		baymaxContainer.position.x += 0.5;
 	}
 
-	//collision detection 
+	//collision detection
 	var originPoint = cube.position.clone();
 
 	for (var vi = 0; vi < cube.geometry.vertices.length; vi++) {
@@ -579,14 +580,14 @@ function keyboardUpdate() {
 		if (collisionResults.length > 0 && collisionResults[0].distance < directionVector.length()) {
 			scene.remove(collisionResults[0].object);
 
-			
+
 		}
 
 
 
 
 
-		
+
 	}
 
 
@@ -624,8 +625,8 @@ function randint(min, max) {
 
 function init() {
 
-	document.getElementById("press").innerHTML = "Try pressing the space button " +
-	"and see what happens!";
+	// document.getElementById("press").innerHTML = "Try pressing the space button " +
+	// "and see what happens!";
 	 try {
 	        canvas = document.getElementById("glcanvas");
 	        renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true} );
@@ -644,15 +645,45 @@ function init() {
 </script>
 </head>
 <body onload="init()">
-<div id="canvas-holder">
-    <canvas id="glcanvas" width="1000" height="400"></canvas>
+	<h1>Portfolio</h1>
+
+
+	<div id = "section">
+		<h2>Collect all Microbots! Mini Game</h2>
+		<div id="canvas-holder">
+		    <canvas id="glcanvas" width="600" height="400" ></canvas>
+				<p id = "spaces"> space: keyboardUpdate() </p>
+				<!--Prevent space/up/down page scroll-->
+				<script>
+				window.addEventListener('keydown', function(e)  {
+					//32 = space; 40 = down key; 38 = up key
+					if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38)  && e.target == document.body) {
+						e.preventDefault();
+					}
+
+				});
+				</script>
+
+
+
+		</div>
 </div>
 
-<p id = "spaces"> space: keyboardUpdate() </p>
-<p id = "press">init()</p>
-<p id = "spacebug"> keyboardUpdate() </p>
+<!--Navigation bar -->
+<div id = "nav" style = "margin: -760px 0px 20px 750px;">
+  <ul>
+    <a href = "index.html">Home</a>
+    <a href = "index.html">Resume</a>
+    <a href = "portfolio.html">Portfolio</a>
+    <a href = "aboutme.html">About Me</a>
+  </ul>
+  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
+
+</div>
+
+
+
+
 
 </body>
 </html>
-
-
