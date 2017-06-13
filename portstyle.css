@@ -4,6 +4,12 @@ body {
   background-image: url("bg.jpg");
 }
 
+p1 {
+  color: #FFA5D4;
+  font-family: lucidaconsole;
+  font-size: 20px;
+}
+
 h1 {
   font-family: courier;
   color: white;
@@ -13,7 +19,11 @@ h1 {
 
 p {
   font-family: bookantiqua;
-  color: black;
+  color: white;
+}
+
+h2 {
+  color: pink;
 }
 
 
@@ -25,7 +35,9 @@ p {
   margin-left: 50px;
   padding: 30px;
   overflow: auto;
-  
+  background-color: black;
+  opacity: 0.9;
+
 }
 
 #nav {
@@ -38,6 +50,9 @@ p {
   position: absolute;
   padding: 30px;
   text-align: center;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
 
 }
 
@@ -47,6 +62,7 @@ div.gallery {
   border: 2px solid;
   width: 180px;
   float: left;
+  color: white;
 
 
 
@@ -55,11 +71,13 @@ div.gallery {
 div.gallery:hover {
   background-color: pink;
   transition-duration: 0.5s;
+  color: black;
 }
 
 div.gallery img {
   width: 100%;
   height: auto;
+  opacity: 1;
 }
 
 div.desc {
@@ -73,13 +91,19 @@ div.desc {
 ul a:link {
   display:block;
 	font-family: courier;
-	color:pink;
+	color:white;
 	width:103px;
 	font-weight:bold;
 	padding:4px;
 	margin:0% 0% 0% 20%;
 
 }
+
+a {
+  color: #FFA5D4;
+}
+
+
 
 
 ul a:hover {
