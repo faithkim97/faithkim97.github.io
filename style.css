@@ -12,6 +12,7 @@ h1{
 
 }
 
+
 .button {
   background: rgba(0,0,0,0);
   border-style: dotted;
@@ -33,5 +34,6 @@ h1{
 }
 
 #footer {
+
   margin: 300px 0px 0px 0px;
 }

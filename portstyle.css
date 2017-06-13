@@ -22,7 +22,7 @@ p {
   color: white;
 }
 
-h2 {
+h2,h3 {
   color: pink;
 }
 
@@ -109,4 +109,8 @@ a {
 ul a:hover {
   transition-duration: 0.5s;
   background-image: url("sparkle.gif");
+}
+
+#footer {
+
 }

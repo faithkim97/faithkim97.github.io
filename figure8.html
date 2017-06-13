@@ -154,7 +154,7 @@
         count++;
         rotate(0.1);
 
-
+        graphics.fillStyle = "black";
 
         graphics.fillRect(50,50,50,50);
 
@@ -177,7 +177,6 @@
             reflectionMatrix();
 
 
-
         }
 
 
@@ -185,7 +184,10 @@
 
 
 
-    }
+    }//end of animate
+
+
+
 
 
 
@@ -194,6 +196,8 @@
 
         canvas = document.getElementById("theCanvas");
         graphics = canvas.getContext("2d");
+        graphics.fillStyle = "white";
+        graphics.fillRect(0,0, canvas.width, canvas.height);
         identityMatrix();
         translateM(200,100);   // draw something on the canvas
         timer = setInterval(animate, 50);
@@ -211,9 +215,11 @@
 
 </head>
 <body onload="init()">
-  <h1> Figure 8 </h2>
-    <div id = "section" style = "position: absolute;">
-    <canvas id="theCanvas" width="800" height="800"></canvas>
+  <h1> Portfolio </h2>
+    <div id = "section" style = "position: absolute; ">
+      <!--<img src = "onepiece.jpg">-->
+      <h2>Figure 8 Animation</h2>
+    <canvas id="theCanvas" width="600" height="400"></canvas>
   </div>
   <div id = "nav" style = "margin: -5px 0px 20px 800px;">
     <ul>

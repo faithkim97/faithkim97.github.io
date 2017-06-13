@@ -2,12 +2,13 @@
 <!DOCTYPE html>
 <head>
 <title>Solar System</title>
+<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
 <script src="three.min.js"></script>
 <script src="KeyboardState.js"></script>
 
 <script>
 
-/* 
+/*
 PLEASE USE GOOGLE CHROME FOR OPTIMAL KEYBOARD MOVEMENT. FIREFOX HAS CHOPPY ANIMATION
 
 CONTROLS FOR THE KEYBOARD:
@@ -16,7 +17,7 @@ CONTROLS FOR THE KEYBOARD:
     -In order to rotate the camera, hold the space button while using the W,A,S,D keys
 2.) Earth control:
     -The arrows up, left, down, right
-3.) Saturn control: 
+3.) Saturn control:
     -Keys I,J,K,L (forward, left, backward, right respectively)
 
 */
@@ -33,17 +34,17 @@ CONTROLS FOR THE KEYBOARD:
     var dust;
     var earthContainer;
     var saturnContainer;
-    var dirLightZ; 
+    var dirLightZ;
 
 
 
     // Create the scene. This function is called once, as soon as the page loads.
     // The renderer has already been created before this function is called.
     function createWorld() {
-        
+
         renderer.setClearColor(0); // Set background color (0, or 0x000000, is black).
         scene = new THREE.Scene(); // Create a new scene which we can add objects to.
-    
+
         // create a camera, sitting on the positive z-axis.  The camera is not part of the scene.
         camera = new THREE.PerspectiveCamera(45, canvas.width/canvas.height, 0.1, 900);
         camera.position.z = 300; // pull back the camera
@@ -76,18 +77,18 @@ CONTROLS FOR THE KEYBOARD:
         sunSphere = new THREE.Mesh(sphereGeometry, sphereMaterial);
 
         // add the sphere to the scene
-        scene.add(sunSphere); 
+        scene.add(sunSphere);
 
 
 
         planet = new THREE.Object3D();
         scene.add(planet);
-    
+
         // sunSphere.add(planet);
 
         moonContainer = new THREE.Object3D();
         scene.add(moonContainer);
-    
+
         var earthGeometry = new THREE.SphereGeometry(radius/3,segments,rings);
         var earthMaterial = new THREE.MeshLambertMaterial({color: "#418cff"});
         earthSphere = new THREE.Mesh(earthGeometry, earthMaterial);
@@ -96,7 +97,7 @@ CONTROLS FOR THE KEYBOARD:
         // //earth is child of planet
         scene.add(earthSphere);
         // planet.add(earthSphere);
-        
+
 
         //add moon
         var moonGeometry = new THREE.SphereGeometry(radius/10, segments, rings);
@@ -107,7 +108,7 @@ CONTROLS FOR THE KEYBOARD:
 
         scene.add(moonSphere);
 
-        // earthSphere.add(moonSphere); 
+        // earthSphere.add(moonSphere);
 
         moonContainer.add(moonSphere);
 
@@ -125,11 +126,11 @@ CONTROLS FOR THE KEYBOARD:
 
 
 
-        
-        
+
+
         //making the saturn ring
         for (var i = 0; i< 360; i++) {
-            //used the polygon function to replicate a unit circle 
+            //used the polygon function to replicate a unit circle
             var theta = (2*Math.PI)/i;
             var x = r*Math.cos(theta);
             var z  = r*Math.sin(theta);
@@ -148,7 +149,7 @@ CONTROLS FOR THE KEYBOARD:
             saturn.add(dust2);
             scene.add(dust);
             saturn.add(dust);
-           
+
 
         }
 
@@ -157,12 +158,12 @@ CONTROLS FOR THE KEYBOARD:
              var starMaterial = new THREE.MeshLambertMaterial({color: "aqua"});
              var star = new THREE.Mesh(starGeometry, starMaterial);
 
-           
+
              star.position.set(getRandomInt(-400,400), getRandomInt(-200,200), getRandomInt(-300,300));
              scene.add(star);
         }
 
-            
+
 
         earthContainer = new THREE.Object3D();
         saturnContainer = new THREE.Object3D();
@@ -175,10 +176,10 @@ CONTROLS FOR THE KEYBOARD:
         sunSphere.add(saturnContainer);
 
 
-        
 
 
-         
+
+
 
 
 }
@@ -270,21 +271,21 @@ CONTROLS FOR THE KEYBOARD:
         angle += 0.02;
 
 
-        //to rotate the planets-->use the sunSphere rotation 
+        //to rotate the planets-->use the sunSphere rotation
         // sunSphere.rotation.y = angle*0.5;
         moonContainer.rotation.z = angle;
-    
+
         keyboardUpdate();
         renderer.render(scene, camera);
-        
-        
+
+
     }
 
     function getRandomInt(min, max) {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min)) + min;
-}
+    }
 
 
     //----------------------------------------------------------------------------------
@@ -299,7 +300,7 @@ CONTROLS FOR THE KEYBOARD:
             document.getElementById("canvas-holder").innerHTML = "<h3><b>WebGL is not available.</b><h3>";
             return;
         }
-    
+
         // create world and render scene
         createWorld();
         render();
@@ -309,8 +310,32 @@ CONTROLS FOR THE KEYBOARD:
 
 </head>
 <body onload="init()">
+  <h1>Portfolio</h1>
+  <div id = "section">
+    <h2>Planets!</h2>
+    <h3>Controls:<h3>
+      <ul>
+      <li><p> W,A,S,D: move the camera</p></li>
+      <li><p>Space + W,A,S,D: rotate camera</p></li>
+      <li><p>I,J,K,L: Move the Saturn!</p></li>
+      <li><p>Arrow keys: move the Earth!</p></li>
+    </ul>
 <div id="canvas-holder">
     <canvas id="glcanvas" width="600" height="400"></canvas>
 </div>
+</div>
+
+<!--Navigation bar -->
+<div id = "nav" style = "margin: -760px 0px 20px 750px;">
+  <ul>
+    <a href = "index.html">Home</a>
+    <a href = "index.html">Resume</a>
+    <a href = "portfolio.html">Portfolio</a>
+    <a href = "aboutme.html">About Me</a>
+  </ul>
+  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
+
+</div>
+
 </body>
 </html>
