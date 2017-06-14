@@ -322,6 +322,16 @@ CONTROLS FOR THE KEYBOARD:
     </ul>
 <div id="canvas-holder">
     <canvas id="glcanvas" width="600" height="400"></canvas>
+    <!--Prevent space/up/down page scroll-->
+    <script>
+    window.addEventListener('keydown', function(e)  {
+      //32 = space; 40 = down key; 38 = up key
+      if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38)  && e.target == document.body) {
+        e.preventDefault();
+      }
+
+    });
+    </script>
 </div>
 </div>
 
