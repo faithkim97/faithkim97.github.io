@@ -1,0 +1,117 @@
+
+body {
+  background-color: black;
+  background-image: url("bg.jpg");
+  
+}
+
+p1 {
+  color: #FFA5D4;
+  font-family: lucidaconsole;
+  font-size: 20px;
+}
+
+h1 {
+  font-family: courier;
+  color: white;
+  font-size: 100px;
+  margin-left: 50px;
+}
+
+p {
+  font-family: bookantiqua;
+  color: white;
+}
+
+h2,h3 {
+  color: pink;
+}
+
+
+#section {
+  border-radius: 25px;
+  background-color: white;
+  width: 600px;
+  height: 700px;
+  margin-left: 50px;
+  padding: 30px;
+  overflow: auto;
+  background-color: black;
+  opacity: 0.9;
+
+}
+
+#nav {
+  border-radius: 25px;
+  float: right;
+  width: 300px;
+  height: 200px;
+  background-color: white;
+  overflow: auto;
+  position: absolute;
+  padding: 30px;
+  text-align: center;
+  background-color: black;
+  opacity: 0.8;
+  color: white;
+
+}
+
+
+div.gallery {
+  margin: 5px;
+  border: 2px solid;
+  width: 180px;
+  float: left;
+  color: white;
+
+
+
+}
+
+div.gallery:hover {
+  background-color: pink;
+  transition-duration: 0.5s;
+  color: black;
+}
+
+div.gallery img {
+  width: 100%;
+  height: auto;
+  opacity: 1;
+}
+
+div.desc {
+  overflow: auto;
+  font-family:bookantiqua;
+  padding: 5px;
+  font-size:12px;
+}
+
+/* Used for hovering over navigation bar check 2p!england for example*/
+ul a:link {
+  display:block;
+	font-family: courier;
+	color:white;
+	width:103px;
+	font-weight:bold;
+	padding:4px;
+	margin:0% 0% 0% 20%;
+
+}
+
+a {
+  color: #FFA5D4;
+}
+
+
+
+
+ul a:hover {
+  transition-duration: 0.5s;
+  background-image: url("sparkle.gif");
+}
+
+#footer {
+
+}
