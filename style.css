@@ -1,34 +1,103 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+
 
 body {
   background-color: black;
-  background-image: url("bg.jpg");
 }
-
-h1{
-  color: white;
-  margin-left: 300px;
-  font-size: 130px;
-  font-family: courier;
-
-}
-
-
 
 h2 {
-  color: #71F9FF;
-  font-family: courier;
-
-}
-
-
-.button {
-  background: rgba(0,0,0,0);
-  border-style: dotted;
-  border-color: white;
   color: white;
-  padding: 15px 32px;
-  font-size: 20px;
-  font-family: courier;
-  position: absolute;
+  font-family: "Raleway";
+
 
 }
+
+h4 {
+	color: black;
+	font-family: "Raleway";
+	
+}
+
+/** Navigation bar */
+ul {
+	list-style-type: none;
+	margin: 10;
+
+	font-family: "Raleway";
+	color: white;
+	
+	
+}
+
+li {
+	display: inline;
+	float: right;
+	padding: 3%;
+}
+
+li a {
+
+	display: block;
+	background-color: black;
+	color: white;
+	padding: 3%;
+	
+	
+}
+
+.active {
+	display: block;
+	background-color: pink;
+	color: black;
+	
+}
+
+li a:hover {
+	display: block;
+    background-color: white;
+    color: black;
+    transition-duration: 0.5s;
+    padding: 10%;
+    width: 100%;
+    border-radius: 5%;
+}
+
+
+
+
+.header { 
+	width: 100%;
+	background-color: black;
+	color: white;
+	font-family: "Raleway";
+	padding: 2%;
+
+	
+}
+
+.nav {
+	color: white;
+	font-family: "Raleway";
+	background-color: black;
+}
+
+.cover {
+	width:100%;
+	height: 40%;
+	background-image: url("coverme.jpg");
+	padding: 13%;
+	background-repeat: no-repeat;
+	margin-top: 5%;
+}
+
+.footer {
+	background-color: black;
+	width: 100%;
+	height: 30%;
+	font-family: "Raleway";
+	color: white;
+	padding: 10%;
+	margin-left: 36%;
+}
+
