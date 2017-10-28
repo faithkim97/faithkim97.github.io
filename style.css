@@ -13,6 +13,24 @@ h2 {
 
 }
 
+p {
+	color: black;
+	font-family: "Raleway";
+	font-size: 25px;
+
+}
+
+.textblock {
+	width: 50%;
+	height: 100%;
+
+}
+
+h1 {
+	color: white;
+	font-family: "Raleway";
+}
+
 h4 {
 	color: black;
 	font-family: "Raleway";
@@ -76,20 +94,41 @@ li a:hover {
 	
 }
 
+.bold {
+  font-weight:bold;
+}
+
 .nav {
 	color: white;
 	font-family: "Raleway";
 	background-color: black;
 }
 
+div {
+	width: 100vw;
+	height: auto;
+	max-width: 100%;
+	max-height: 80%;
+}
+
 .cover {
-	width:100%;
-	height: 40%;
+	width: 100vw;
+	height: auto;
+	max-height: 100%;
 	background-image: url("coverme.jpg");
 	padding: 13%;
-	background-repeat: no-repeat;
+	background-repeat: x-repeat;
 	margin-top: 5%;
+	overflow: hidden;
 }
+
+/* 
+img {
+	width: 25vw;
+	height: 50vh;
+	
+}
+ */
 
 .footer {
 	background-color: black;
