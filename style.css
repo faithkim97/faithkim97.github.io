@@ -24,6 +24,7 @@ p {
 	width: 50%;
 	height: 100%;
 
+
 }
 
 h1 {
@@ -109,6 +110,8 @@ div {
 	height: auto;
 	max-width: 100%;
 	max-height: 80%;
+/* 	Not working */
+	overflow: hidden;
 }
 
 .cover {
@@ -117,18 +120,12 @@ div {
 	max-height: 100%;
 	background-image: url("coverme.jpg");
 	padding: 13%;
-	background-repeat: x-repeat;
+	background-repeat: repeat-x;
 	margin-top: 5%;
 	overflow: hidden;
 }
 
-/* 
-img {
-	width: 25vw;
-	height: 50vh;
-	
-}
- */
+
 
 .footer {
 	background-color: black;
@@ -138,5 +135,43 @@ img {
 	color: white;
 	padding: 10%;
 	margin-left: 36%;
+}
+
+.sectionblock {
+	width: 100vw;
+	height: 100vw;
+	max-width: 100%;
+	max-height: 100%;
+	background-color: black;
+	font-family: "Raleway";
+	color: white;
+	
+}
+
+div.gallery {
+/*   margin: 5vw; */
+  border: 2px solid;
+  width: 50vw;
+  height: 50vh;
+  
+  float: left;
+  color: white;
+
+
+
+}
+
+
+div.gallery img {
+  width: 60vw;
+  height: auto;
+  opacity: 1;
+}
+
+div.desc {
+  overflow: scroll;
+  font-family:bookantiqua;
+  padding: 5px;
+  font-size:12px;
 }
 
