@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <head>
 <title> Final Project </title>
-<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
+<link rel = "stylesheet" type = "text/css" href = "../style.css">
 <script src = "three.min.js"></script>
 <script src = "KeyboardState.js"> </script>
 
@@ -625,8 +625,7 @@ function randint(min, max) {
 
 function init() {
 
-	// document.getElementById("press").innerHTML = "Try pressing the space button " +
-	// "and see what happens!";
+	
 	 try {
 	        canvas = document.getElementById("glcanvas");
 	        renderer = new THREE.WebGLRenderer( { canvas: canvas, antialias: true} );
@@ -645,52 +644,67 @@ function init() {
 </script>
 </head>
 <body onload="init()">
-	<h1>Portfolio</h1>
+	<div class = "header">
+  	<h1>F A I T H  K I M</h1>
+  		<div class = "nav">
+  	
+  			<ul>
+  				<li><a href = "https://faithkim97.github.io/portfolio.html">Portfolio</a></li>
+  				<li><a href = "https://faithkim97.github.io/aboutme.html">About</a></li>
+  				<li><a href = "https://faithkim97.github.io/index.html">Home</a></li>
+  			</ul>
+  		</div>
+  	</div>
 
 
-	<div id = "section">
-		<h2>Collect all Microbots! Mini Game</h2>
+	<div class = "sectionblock">
+		<h2><i>Collect the Microbots</i></h2>
 		<h3>Controls:</h3>
 		<ul>
-			<li><p><u>W,A,S,D:</u> Move the character in midspace!</p></li>
-			<li><p><u>Space:</u> Move between which microbot to control! Try it out! (The first space is only a test,
+			<p style = "color: white;">W,A,S,D:</u> Move the character in midspace!</p>
+			<p style = "color: white;"><u>Space:</u> Move between which microbot to control! Try it out! (The first space is only a test,
 				so it won't move any of the microbots)</p></li>
-				<p><u>Up Arrow and Down Arrow:</u> Move microbots forward and backward!<br></p>
-				<p><u>Left and Right Arrows:</u> Move microbots left and right!</p>
-				<p><u>Enter/Return and Shift:</u> Move microbots up and down respectively</p>
+				<p style = "color: white;"><u>Up Arrow and Down Arrow:</u> Move microbots forward and backward!<br></p>
+				<p style = "color: white;"><u>Left and Right Arrows:</u> Move microbots left and right!</p>
+				<p style = "color: white;"><u>Enter/Return and Shift:</u> Move microbots up and down respectively</p>
 
-			</li>
+			
 		</ul>
-		<div id="canvas-holder">
+		<div id="canvas-holder" style = "margin-left: 25%;">
 		    <canvas id="glcanvas" width="600" height="400" ></canvas>
 				<p id = "spaces"> space: keyboardUpdate() </p>
 				<!--Prevent space/up/down page scroll-->
 				<script>
 				window.addEventListener('keydown', function(e)  {
 					//32 = space; 40 = down key; 38 = up key
-					if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38)  && e.target == document.body) {
+					if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 37 || e.keyCode == 39)  && e.target == document.body) {
 						e.preventDefault();
 					}
 
 				});
 				</script>
-
-
-
+	
 		</div>
+		<p style = "color: white;"> <i>Tools Used:</i> Blender, Three.js (WebGL JavaScript)</p>
+			<p style = "color: white;"> As the final project for Computer Graphics, I decided to created a game based on one of 
+			my favorite Disney movies, <i>Big Hero 6</i> Baymax is currently in space and must save Hiro and his friends from the
+			evil doings of the Microbots! Help Baymax by collecting all of them back!</p>
+			
+		<p style= "color: white;"> The Baymax model and the floating spiked tire were created using Blender while the game
+		mechanics were programmed using the Three.js library. The most challenging aspect of this game was trying to get the
+		hierarchical modeling to actually work--I originally had overloaded too many children onto the scene, causing the rendering
+		process to be infeasible, so I had to re-scope the project and cut back on the number of children I wanted in this game. 
+		
+		Another challenging aspect was to successfully create a collision between two objects. Through collision detection is how 
+		Baymax is able to collect the Microbots (essentially destroying the Microbot objects from the scene). I initially wanted
+		Baymax to collide directly with the Microbot objects; however, because Baymax was imported from a Blender file, the properties
+		of collision detection I had coded for the game did not work for Baymax or any other Blender-imported 3D models; and so, to work around that, I had attached a default
+		cube model to Baymax so that the box itself can collide with the Microbots to "collect" them.</p>
+		
+		
 </div>
 
-<!--Navigation bar -->
-<div id = "nav" style = "margin: -760px 0px 20px 750px;">
-  <ul>
-    <a href = "https://faithkim97.github.io/index.html">Home</a>
-		<a href = "https://www.linkedin.com/in/faith-kim-a49431129/">LinkedIn</a>
-    <a href = "https://faithkim97.github.io/portfolio.html">Portfolio</a>
-    <a href = "https://faithkim97.github.io/aboutme.html">About Me</a>
-  </ul>
-  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
 
-</div>
 
 
 

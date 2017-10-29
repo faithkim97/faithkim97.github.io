@@ -2,14 +2,14 @@
 <!DOCTYPE html>
 <head>
 <title>Solar System</title>
-<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
+<link rel = "stylesheet" type = "text/css" href = "style.css">
 <script src="three.min.js"></script>
 <script src="KeyboardState.js"></script>
 
 <script>
 
 /*
-PLEASE USE GOOGLE CHROME FOR OPTIMAL KEYBOARD MOVEMENT. FIREFOX HAS CHOPPY ANIMATION
+
 
 CONTROLS FOR THE KEYBOARD:
 1.) Camera Control:
@@ -310,42 +310,53 @@ CONTROLS FOR THE KEYBOARD:
 
 </head>
 <body onload="init()">
-  <h1>Portfolio</h1>
-  <div id = "section">
-    <h2>Planets!</h2>
-    <h3>Controls:<h3>
-      <ul>
-      <li><p> W,A,S,D: move the camera</p></li>
-      <li><p>Space + W,A,S,D: rotate camera</p></li>
-      <li><p>I,J,K,L: Move the Saturn!</p></li>
-      <li><p>Arrow keys: move the Earth!</p></li>
-    </ul>
-<div id="canvas-holder">
+   <div class = "header">
+  	<h1>F A I T H  K I M</h1>
+  		<div class = "nav" >
+  	
+  			<ul>
+  				<li><a href = "https://faithkim97.github.io/portfolio.html">Portfolio</a></li>
+  				<li><a href = "https://faithkim97.github.io/aboutme.html">About</a></li>
+  				<li><a href = "https://faithkim97.github.io/index.html">Home</a></li>
+  			</ul>
+  		</div>
+  	</div>
+  	
+<div class = "sectionblock">
+<h2>Planets</h2>
+<p style = "color:white;"><i>Controls:</i></p>
+<p style = "color:white"> W,A,S,D: Move camera</p>
+<p style = "color:white">W,A,S,D + Space: Rotate camera </p>
+<p style = "color:white">Arrows: Move Earth</p>
+<p style = "color:white">I,J,K,L: Move Saturn
+<div id="canvas-holder" style = "margin-left: 30%;">
     <canvas id="glcanvas" width="600" height="400"></canvas>
     <!--Prevent space/up/down page scroll-->
     <script>
     window.addEventListener('keydown', function(e)  {
       //32 = space; 40 = down key; 38 = up key
-      if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38)  && e.target == document.body) {
+      if ( (e.keyCode == 32 || e.keyCode == 40 || e.keyCode == 38 || e.keyCode == 37 || e.keyCode == 39)  && e.target == document.body) {
         e.preventDefault();
       }
 
     });
     </script>
 </div>
+
+
+<p style = "color: white;"><i>Tool Used:</i> Three.js ( WebGL JavaScript )</p>
+<p style = "color:white;">In this project, I was studying the concept of <i>hierarchical modeling</i> between each star/planets along with</p>
+<p style = "color:white;">creating light for the sun that will reflect off the Earth and Saturn</p>
 </div>
 
-<!--Navigation bar -->
-<div id = "nav" style = "margin: -760px 0px 20px 750px;">
-  <ul>
-    <a href = "index.html">Home</a>
-    <a href = "https://www.linkedin.com/in/faith-kim-a49431129/">LinkedIn</a>
-    <a href = "portfolio.html">Portfolio</a>
-    <a href = "aboutme.html">About Me</a>
-  </ul>
-  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
 
-</div>
+ <div class = "footer">
+		<a href="https://github.com/faithkim97"><img src = github.ico style= "width:5%; height: 5%;"></a>
+		<a href="https://linkedin.com/in/faith-kim/"><img src=linkedin.png style="width:5%; height:5%;"></a>
+		<a href="mailto:fkim@smith.edu"><img src=email.png style = "width: 5%; height: 5%;"></a> 
+	</div>
+
+
 
 </body>
 </html>

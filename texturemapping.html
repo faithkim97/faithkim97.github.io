@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <head>
 <title>Texture Mapping</title>
-<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
+<link rel = "stylesheet" type = "text/css" href = "style.css">
 
 <script src="three.min.js"></script>
 
@@ -216,24 +216,47 @@
 </script>
 
 </head>
+
+
+<div class = "header">
+  	<h1>F A I T H  K I M</h1>
+  		<div class = "nav">
+  	
+  			<ul>
+  				<li><a href = "https://faithkim97.github.io/portfolio.html">Portfolio</a></li>
+  				<li><a href = "https://faithkim97.github.io/aboutme.html">About</a></li>
+  				<li><a href = "https://faithkim97.github.io/index.html">Home</a></li>
+  			</ul>
+  		</div>
+  	</div>
+  	
+  	
 <body onload="init()">
-  <h1>Portfolio</h1>
-<div id = "section">
+
+<div class = "sectionblock">
+<h2>Texture Mapping</h2>
   <h2>Texture Mapping Using UV Coordinates</h2>
-<div id="canvas-holder">
+<div id="canvas-holder" style = "margin-left: 25%;">
     <canvas id="glcanvas" width="600" height="400"></canvas>
 </div>
-<!--Navigation bar -->
-<div id = "nav" style = "margin: -500px 0px 20px 700px;">
-  <ul>
-    <a href = "index.html">Home</a>
-    <a href = "https://www.linkedin.com/in/faith-kim-a49431129/">LinkedIn</a>
-    <a href = "portfolio.html">Portfolio</a>
-    <a href = "aboutme.html">About Me</a>
-  </ul>
-  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
+
+<p style = "color: white;"> <i>Tool Used:</i> Three.js ( WebGL JavaScript ) </p>
+<p style = "color: white; font-size: 12px;">Note: If no 3D model is rendered with relevant texture mapping, then
+please use FireFox to render the textures, for Google Chrome does not support such properties.</p>
+
+<p style = "color: white;">This project consisted of practicing using UV-coordinates to create a checker texture of the
+octahedron. The checkered image was intentionally rendered to align in a specific through computing the coordinates to UV.
+The backgrounds were added to see one of my favorite animes be featured in this project.
+</p>
+
 
 </div>
-</div>
+
+
+	<div class = "footer">
+		<a href="https://github.com/faithkim97"><img src = github.ico style= "width:5%; height: 5%;"></a>
+		<a href="https://linkedin.com/in/faith-kim/"><img src=linkedin.png style="width:5%; height:5%;"></a>
+		<a href="mailto:fkim@smith.edu"><img src=email.png style = "width: 5%; height: 5%;"></a> 
+	</div>
 </body>
 </html>

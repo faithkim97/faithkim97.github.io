@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <head>
 <title>Blender to WebGL</title>
-<link rel = "stylesheet" type = "text/css" href = "portstyle.css">
+<link rel = "stylesheet" type = "text/css" href = "style.css">
 <script src="three.min.js"></script>
 
 <script>
@@ -69,23 +69,42 @@
 </script>
 
 </head>
+
+
 <body onload="init()">
-  <h1>Portfolio</h1>
-  <div id = "section">
-    <h2>Chess Piece Created in Blender</h2>
-<div id="canvas-holder">
+<div class = "header">
+  	<h1>F A I T H  K I M</h1>
+  		<div class = "nav">
+  	
+  			<ul>
+  				<li><a href = "https://faithkim97.github.io/portfolio.html">Portfolio</a></li>
+  				<li><a href = "https://faithkim97.github.io/aboutme.html">About</a></li>
+  				<li><a href = "https://faithkim97.github.io/index.html">Home</a></li>
+  			</ul>
+  		</div>
+  	</div>
+
+  <div class = "sectionblock">
+    <h2>Chess Piece: Pawn </h2>
+<div id="canvas-holder" style = "margin-left: 25%;">
     <canvas id="glcanvas" width="600" height="400"></canvas>
 </div>
+
+	<p style = "color:white;"><i>Tool used:</i> Blender </p>
+	<p style= "color:white;"> The goal of this project was to become fluent in Blender by creating a simple chess piece; I had originally 
+	designed the Queen; however, due to the exorbitant increase in the size of the file, it became
+	impossible to render. Therefore, I had decided to design a simpler piece: the Pawn.
+	
+	Initially, I took a 3D sphere provided by Blender, then used the appropriate shaping and elongating tools to finish
+	the end product of the Pawn.</p>
 </div>
-<!--Navigation bar -->
-<div id = "nav" style = "margin: -760px 0px 20px 750px;">
-  <ul>
-    <a href = "index.html">Home</a>
-    <a href = "https://www.linkedin.com/in/faith-kim-a49431129/">LinkedIn</a>
-    <a href = "portfolio.html">Portfolio</a>
-    <a href = "aboutme.html">About Me</a>
-  </ul>
-  <p style = "font-size: 10px;"> Gif created by <a href = "http://www.animateit.net/categories.php?cat_id=54">AnimateIt</a></p>
-</div>
+
+  <div class = "footer">
+		<a href="https://github.com/faithkim97"><img src = github.ico style= "width:5%; height: 5%;"></a>
+		<a href="https://linkedin.com/in/faith-kim/"><img src=linkedin.png style="width:5%; height:5%;"></a>
+		<a href="mailto:fkim@smith.edu"><img src=email.png style = "width: 5%; height: 5%;"></a> 
+	</div>
+
+
 </body>
 </html>
