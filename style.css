@@ -65,14 +65,16 @@ li a {
 	
 }
 
-.active {
-	display: block;
-	background-color: pink;
-	color: black;
+li a:active {
+	/* display: block; */
+	background-color: blue;
+	color: red;
+	width: 100%;
+    border-radius: 5%;
 	
 }
 
-li a:hover {
+.nav li a:hover {
 	display: block;
     background-color: white;
     color: black;
@@ -147,7 +149,7 @@ div {
 	color: white;
 	overflow: scroll;
 	padding: 3%;
-/* 	border: 1px solid; */
+	
 }
 
 div.gallery {
@@ -172,8 +174,8 @@ div.gallery img {
 
 div.desc {
   overflow: scroll;
-  font-family:bookantiqua;
+  font-family:"Raleway";
   padding: 5vmin;
-  font-size:12px;
+  font-size:14px;
 }
 
