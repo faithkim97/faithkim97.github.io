@@ -13,7 +13,11 @@ h2 {
   font-family: "Raleway";
   color:white;
 
+}
 
+h3 {
+	font-family: "Raleway";
+	color: white;
 }
 
 p {
@@ -86,7 +90,6 @@ li a:active {
     width: 100%;
     border-radius: 5%;
 }
-
 
 
 
